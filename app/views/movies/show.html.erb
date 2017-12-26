@@ -1,0 +1,84 @@
+<p>
+  <strong>Jp title:</strong>
+  <%= @movie.jp_title %>
+</p>
+
+<p>
+  <strong>En title:</strong>
+  <%= @movie.en_title %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @movie.image_url, width: '200' %>
+</p>
+
+<p>
+  <strong>star:</strong>
+  <%= @movie.star %>
+</p>
+
+<p>
+  <strong>Director:</strong>
+  <%= @movie.director %>
+</p>
+
+<p>
+  <strong>writer:</strong>
+  <%= @movie.writer %>
+</p>
+
+<p>
+  <strong>Playyear:</strong>
+  <%= @movie.playyear %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @movie.country %>
+</p>
+
+<p>
+  <%= link_to 'IMDbを見る', @movie.imdb %>
+</p>
+
+<%= link_to 'Edit', edit_movie_path(@movie) %> |
+<%= link_to 'Back', movies_path %>
+
+
+<div>
+  <%= link_to 'レビューを投稿する', choose_new_or_edit(@own_review, @movie) %>
+</div>
+<br>
+<hr>
+<br>
+
+<h2>レビュー</h2>
+<% if @own_review.present? %>
+  <p><%= link_to "#{@own_review.user.name}", review_path(@own_review.id) %></p>
+
+  <p>
+    <strong>Content:</strong>
+    <%= @own_review.content %>
+  </p>
+
+  <p>
+    <strong>Phrase:</strong>
+    <%= @own_review.phrase %>
+  </p>
+<% end %>
+<% if @reviews.present? %>
+  <% @reviews.each do |review| %>
+    <p><%= link_to "#{review.user.name}", review_path(review.id) %></p>
+
+    <p>
+      <strong>Content:</strong>
+      <%= review.content %>
+    </p>
+
+    <p>
+      <strong>Phrase:</strong>
+      <%= review.phrase %>
+    </p>
+  <% end %>
+<% end %>

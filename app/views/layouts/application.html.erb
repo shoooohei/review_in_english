@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReviewInEnglish</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>
+      <p><%= link_to "Sign out", destroy_user_session_path, method: :delete %> |
+        <%= current_user.name %>さん |
+        <%= link_to "Top", movies_path %> |
+        <%= link_to "Reviewed", reviewed_movies_path %> |
+        <%= link_to "Corrected",  corrected_review_path(current_user.id) %> |
+      </p>
+
+    <% end %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+</html>

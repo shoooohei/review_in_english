@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  review: 
+  user: 
+  wether_correction: false
+
+two:
+  content: MyText
+  review: 
+  user: 
+  wether_correction: false

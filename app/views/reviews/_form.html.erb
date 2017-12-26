@@ -1,0 +1,37 @@
+<%= form_with(model: review, local: true) do |form| %>
+  <% if review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= link_to "#{@movie.en_title}", movie_path(@movie.id) %>
+  </p>
+
+    <%= image_tag @movie.image_url, width: '200' %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :review_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phrase %>
+    <%= form.text_area :phrase, id: :review_phrase %>
+  </div>
+
+  <%= form.hidden_field :movie_id, value: @movie.id %>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

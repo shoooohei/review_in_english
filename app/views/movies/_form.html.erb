@@ -1,0 +1,63 @@
+<%= form_with(model: movie, local: true) do |form| %>
+  <% if movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+      <% movie.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :jp_title %>
+    <%= form.text_field :jp_title, id: :movie_jp_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :en_title %>
+    <%= form.text_field :en_title, id: :movie_en_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image, id: :movie_image %>
+    <%= form.hidden_field :image_cache %>
+  </div>
+
+  <div class="field">
+    <%= form.label :star %>
+    <%= form.text_area :star, id: :movie_star %>
+  </div>
+
+  <div class="field">
+    <%= form.label :director %>
+    <%= form.text_field :director, id: :movie_director %>
+  </div>
+
+  <div class="field">
+    <%= form.label :writer %>
+    <%= form.text_field :writer, id: :movie_writer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :playyear %>
+    <%= form.number_field :playyear, id: :movie_playyear %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_field :country, id: :movie_country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :imdb %>
+    <%= form.text_area :imdb, id: :movie_imdb %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
