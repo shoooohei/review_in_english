@@ -1,0 +1,32 @@
+<h2><%= current_user.name %>さんが添削したレビュー</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Correction</th>
+      <th>name</th>
+      <th>Review</th>
+      <th>Image</th>
+      <th>En title</th>
+      <th>Jp title</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @corrections.each do |correction| %>
+      <% movie = correction.review.movie %>
+      <% review = correction.review %>
+      <tr>
+        <td><%= correction.content %></td>
+        <td><%= review.user.name %></td>
+        <td><%= review.content %></td>
+        <td><%= image_tag movie.image_url, width: '100' %></td>
+        <td><%= movie.en_title %></td>
+        <td><%= link_to movie.jp_title, movie_path(movie.id) %></td>
+        <td><%= link_to 'Show', review_path(review.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br><br><br>

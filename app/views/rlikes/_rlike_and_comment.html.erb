@@ -1,0 +1,36 @@
+<div class="review_like">
+  <% if user_signed_in? %>
+    <% count = review.likes_count %>
+    <% if like_user(review.id, current_user.id).present? %>
+
+      <span class="rlike_for_edit">
+        <%= render 'rlikes/off', review: review, like: @like, count: count %>
+      </span>
+
+      <span class="correction_link">
+        <%= link_to review_path(review.id) do %>
+          <i class="fa fa-commenting-o fa-fw fa-lg" aria-hidden="true"></i>添削・コメントする
+        <% end %>
+      </span>
+
+    <% else %>
+
+      <span class="rlike_for_edit">
+        <%= render 'rlikes/on', review: review, count: count %>
+      </span>
+
+      <span class="correction_link">
+        <%= link_to review_path(review.id) do %>
+        <i class="fa fa-commenting-o fa-fw fa-lg" aria-hidden="true"></i>添削・コメントする
+        <% end %>
+      </span>
+
+    <% end %>
+
+  <% else %>
+    <p class="review_like"><i class="fa fa-heart" aria-hidden="true"></i>いいね！</p>
+      <span>
+        <%= review.likes_count %>
+      </span>
+  <% end %>
+</div>

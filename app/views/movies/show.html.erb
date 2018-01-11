@@ -1,84 +1,42 @@
-<p>
-  <strong>Jp title:</strong>
-  <%= @movie.jp_title %>
-</p>
+<div class="movie_detail container-fluid">
+  <h3><%= link_to @movie.en_title, movie_path(@movie.id) %></h3>
+  <h6><small><%= @movie.jp_title %></small></h6><br>
+  <div class="row">
+    <div class="movie_image col-md-4">
+      <%= image_tag @movie.image_url, width: '200' %>
+    </div>
 
-<p>
-  <strong>En title:</strong>
-  <%= @movie.en_title %>
-</p>
+    <div class="movie_explanation col-md-8">
+      <p><strong>Director:</strong><%= @movie.director %></p>
+      <p><strong>Writer:</strong><%= @movie.writer %></p>
+      <p><strong>Star:</strong><%= @movie.star %></p>
+      <p><strong>Playyear:</strong><%= @movie.playyear %></p>
+      <p><strong>Country:</strong><%= @movie.country %></p>
 
-<p>
-  <strong>Image:</strong>
-  <%= image_tag @movie.image_url, width: '200' %>
-</p>
+      <p><%= link_to 'IMDbを見る', @movie.imdb, target: "_new", class:"btn btn-imdb" %></p>
+      <div>
+        <%= link_to 'レビューを投稿する', choose_new_or_edit(@own_review, @movie), class: 'btn btn-default' %>
+      </div>
+      <br>
 
-<p>
-  <strong>star:</strong>
-  <%= @movie.star %>
-</p>
+      <%= link_to 'Edit', edit_movie_path(@movie) %> |
+      <%= link_to 'Back', movies_path %>
 
-<p>
-  <strong>Director:</strong>
-  <%= @movie.director %>
-</p>
-
-<p>
-  <strong>writer:</strong>
-  <%= @movie.writer %>
-</p>
-
-<p>
-  <strong>Playyear:</strong>
-  <%= @movie.playyear %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @movie.country %>
-</p>
-
-<p>
-  <%= link_to 'IMDbを見る', @movie.imdb %>
-</p>
-
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
-
-
-<div>
-  <%= link_to 'レビューを投稿する', choose_new_or_edit(@own_review, @movie) %>
+    </div>
+  </div>
 </div>
-<br>
-<hr>
-<br>
+<!-- movie_detail -->
 
-<h2>レビュー</h2>
-<% if @own_review.present? %>
-  <p><%= link_to "#{@own_review.user.name}", review_path(@own_review.id) %></p>
+<div class="review_part container">
+  <h2>Reviews</h2>
+    <% if @own_review.present? %>
+      <%= render 'reviews/one_review', review: @own_review %>
+    <% end %>
 
-  <p>
-    <strong>Content:</strong>
-    <%= @own_review.content %>
-  </p>
-
-  <p>
-    <strong>Phrase:</strong>
-    <%= @own_review.phrase %>
-  </p>
-<% end %>
-<% if @reviews.present? %>
-  <% @reviews.each do |review| %>
-    <p><%= link_to "#{review.user.name}", review_path(review.id) %></p>
-
-    <p>
-      <strong>Content:</strong>
-      <%= review.content %>
-    </p>
-
-    <p>
-      <strong>Phrase:</strong>
-      <%= review.phrase %>
-    </p>
-  <% end %>
-<% end %>
+    <% if @reviews.present? %>
+      <% @reviews.each do |review| %>
+        <%= render 'reviews/one_review', review: review %>
+      <% end %>
+    <% end %>
+</div>
+<!-- review_part container -->

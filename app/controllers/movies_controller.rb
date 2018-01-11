@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
   end
 
   def reviewed
-    @reviewed_movies = current_user.review_movies
+    @reviews = current_user.reviews.order(created_at: :desc)
   end
 
   # GET /movies/1

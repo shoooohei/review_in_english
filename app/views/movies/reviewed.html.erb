@@ -1,3 +1,28 @@
 <h2><%= current_user.name %>さんがレビューした作品</h2>
 
-<%= render 'one_movie', movies: @reviewed_movies %>
+<table>
+  <thead>
+    <tr>
+      <th>Review</th>
+      <th>Image</th>
+      <th>En title</th>
+      <th>Jp title</th>
+      <th>Imdb</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reviews.each do |review| %>
+      <% movie = review.movie %>
+      <tr>
+        <td><%= review.content %></td>
+        <td><%= image_tag movie.image_url, width: '100' %></td>
+        <td><%= movie.en_title %></td>
+        <td><%= link_to movie.jp_title, movie_path(movie.id) %></td>
+        <td><%= link_to "IMDbで見る", movie.imdb, target: "_new" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br><br><br>

@@ -1,10 +1,7 @@
+<h1>全作品一覧</h1>
 
-
-<h1>Timeline</h1>
-
-<%= render 'one_movie', movies: @movies %>
-
-
-<br>
-
-<%= link_to 'New Movie', new_movie_path %>
+<% @movies.each do |movie| %>
+  <%= link_to movie_path(movie.id) do %>
+    <%= image_tag "#{movie.image.url}", width:'150', class: 'img-thumbnail' %>
+  <% end %>
+<% end %>

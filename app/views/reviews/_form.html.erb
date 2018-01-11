@@ -22,13 +22,13 @@
     <%= form.text_area :content, id: :review_content %>
   </div>
 
-  <div class="field">
-    <%= form.label :phrase %>
-    <%= form.text_area :phrase, id: :review_phrase %>
-  </div>
+  <%= form.label :rate %>
+  <%= form.text_field :rate, id: 'amount' %>
+
+  <div id="slider"></div>
+
 
   <%= form.hidden_field :movie_id, value: @movie.id %>
-
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="actions">

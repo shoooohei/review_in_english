@@ -1,3 +1,50 @@
-// Place all the styles related to the reviews controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.review_part {
+    margin-top: 30px;
+}
+
+.one_review{
+  background-color: #fff;
+  border: solid 1px #EEEEEE;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+p.review_content {
+  max-height: 100px;
+  margin-top: 20px;
+  padding-left: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+span.correction_link {
+    margin-left: 30px;
+}
+
+p.review_content_whole {
+  min-height: 100px;
+  margin-top: 20px;
+  padding-left: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.fa-yellow {
+  color: #FFD52B;
+}
+
+
+
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+  }
+
+div#slider {
+  width: 50%;
+}

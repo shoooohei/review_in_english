@@ -1,4 +1,5 @@
 module MoviesHelper
+  #
   def choose_new_or_edit(own_review, movie)
     if own_review == nil
       new_review_path(movie.id)
@@ -6,6 +7,8 @@ module MoviesHelper
       edit_review_path(own_review.id)
     end
   end
+
+
 
   # def what_title
   #   if action_name == "index"

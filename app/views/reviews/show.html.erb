@@ -1,25 +1,13 @@
-<p id="notice"><%= notice %></p>
+<%= render 'reviews/one_review', review: @review, movie: @movie, change: @change %>
 
-<p><%= link_to "#{@movie.en_title}", movie_path(@movie.id) %>の<%= @review.user.name %>さんのレビュー</p>
 
-  <%= image_tag @movie.image_url, width: '200' %>
-
-<p>
-  <strong>Content:</strong>
-  <%= @review.content %>
-</p>
-
-<p>
-  <strong>Phrase:</strong>
-  <%= @review.phrase %>
-</p>
 
 
 <% if current_user == @review.user %>
   <%= link_to 'Edit', edit_review_path(@review) %> |
   <%= link_to 'Destroy', review_path(@review), method: :delete, data: { confirm: "Are you sure?"} %> |
 <% else %>
-  <%= link_to 'Correct', new_correction_path(@review.id) %> |
+  <%= link_to 'Correct', new_review_correction_path(@review.id) %> |
 <% end %>
 
 <%= link_to 'Back', movie_path(@movie) %>
@@ -41,23 +29,27 @@
   <% end %>
 <% end %>
 
-<% if @correction.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@correction.errors.count, "error") %> prohibited this correction from being saved:</h2>
-    <ul>
-    <% @correction.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= form_with(model: [@review, @correction], local: true) do |form| %>
+  <% if @correction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@correction.errors.count, "error") %> prohibited this correction from being saved:</h2>
+      <ul>
+      <% @correction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= form_with(model: @correction, local: true) do |form| %>
   <div>
     <%= form.text_area :content %>
   </div>
-  <%= form.hidden_field :review_id, value: @review.id %>
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :wether_correction, value: "false" %>
   <%= form.submit 'comment' %>
 <% end %>
+
+<!-- 添削・コメントリンクを消す -->
+<script>
+  $('.correction_link').css('display','none');
+</script>

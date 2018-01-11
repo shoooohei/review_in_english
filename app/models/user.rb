@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_one :user_icon
   has_many :reviews, dependent: :destroy
   has_many :review_movies, through: :reviews, source: :movie
   has_many :corrections, dependent: :destroy

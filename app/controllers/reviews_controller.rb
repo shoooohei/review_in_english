@@ -1,8 +1,14 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @reviews = Review.all.order(created_at: :desc)
+    @change = "timeline"
+  end
+
 
   def corrected
+    @corrections = current_user.corrections.where(wether_correction: true).order(created_at: :desc)
   end
 
   # GET /reviews/new
@@ -34,6 +40,8 @@ class ReviewsController < ApplicationController
     @movie = @review.movie
     @correction = @review.corrections.new
     @corrections = @review.corrections.order(created_at: :desc)
+    @phrase = @review.phrases.new
+    @change = "review_show"
   end
 
 
@@ -75,6 +83,6 @@ class ReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
-      params.require(:review).permit(:content, :phrase, :movie_id, :user_id)
+      params.require(:review).permit(:content, :phrase, :movie_id, :user_id, :rate)
     end
 end

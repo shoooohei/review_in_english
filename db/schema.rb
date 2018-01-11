@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226081820) do
+ActiveRecord::Schema.define(version: 20180111061500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,15 +42,52 @@ ActiveRecord::Schema.define(version: 20171226081820) do
     t.index ["jp_title"], name: "index_movies_on_jp_title", unique: true
   end
 
+  create_table "phrases", force: :cascade do |t|
+    t.bigint "review_id"
+    t.text "content"
+    t.text "comment"
+    t.integer "likes_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_phrases_on_review_id"
+  end
+
+  create_table "review_likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_review_likes_on_review_id"
+    t.index ["user_id"], name: "index_review_likes_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "content"
-    t.text "phrase"
     t.bigint "movie_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "likes_count", default: 0
+    t.float "rate", default: 0.0
     t.index ["movie_id"], name: "index_reviews_on_movie_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "rlikes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_rlikes_on_review_id"
+    t.index ["user_id"], name: "index_rlikes_on_user_id"
+  end
+
+  create_table "user_icons", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_icons_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,6 +108,12 @@ ActiveRecord::Schema.define(version: 20171226081820) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "phrases", "reviews"
+  add_foreign_key "review_likes", "reviews"
+  add_foreign_key "review_likes", "users"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
+  add_foreign_key "rlikes", "reviews"
+  add_foreign_key "rlikes", "users"
+  add_foreign_key "user_icons", "users"
 end
