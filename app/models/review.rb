@@ -5,4 +5,6 @@ class Review < ApplicationRecord
   has_many :rlike_user, through: :rlikes, source: :user
   has_many :corrections
   has_many :phrases, dependent: :destroy
+
+  validates :content, presence: true
 end

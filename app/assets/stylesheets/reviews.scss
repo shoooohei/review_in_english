@@ -1,3 +1,15 @@
+.timeline_title.container-fluid {
+  background-color: #fff;
+  border: solid 1px #EEEEEE;
+  // margin-top: 20px;
+  margin-bottom: 30px;
+
+  h1 {
+    text-align: center;
+  }
+
+}
+
 .review_part {
     margin-top: 30px;
 }
@@ -20,14 +32,6 @@ p.review_content {
 
 span.correction_link {
     margin-left: 30px;
-}
-
-p.review_content_whole {
-  min-height: 100px;
-  margin-top: 20px;
-  padding-left: 10px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
 }
 
 .fa-yellow {

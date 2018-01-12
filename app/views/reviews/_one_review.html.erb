@@ -1,3 +1,4 @@
+<!-- 変数 review,movie,change -->
 <div class="one_review" data-comment="<%= review.id %>">
   <div id="detail_part" data-comment="<%= review.id %>">
     <h5>
@@ -14,6 +15,15 @@
       <span class="rate_number"><%= review.rate %></span>
     </div>
     <p class="review_content" data-comment="<%= review.id %>"><%= review.content %></p>
+
+    <% if review.phrases.present? %>
+      <div class="phrase_content">
+        <strong>Phrase:</strong>
+        <% review.phrases.each do |phrase| %>
+          <p><%= phrase.content %></p>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <%= render 'rlikes/rlike_and_comment', review: review %>
@@ -23,8 +33,10 @@
 <% if @change.present? %>
   <% if change == "timeline" || change == "review_show" %>
     <script>
+        $('p.review_content[data-comment="'+<%= review.id %>+'"]').before('<h3><%= link_to movie.en_title, movie_path(movie.id) %></h3><h6><small><%= movie.jp_title %></small></h6>'
+        );
         $('#detail_part[data-comment="'+<%= review.id %>+'"]').wrap('<div class="col-md-9" data-comment="<%= review.id %>"></div>');
-        $('.col-md-9[data-comment="'+<%= review.id %>+'"]').after('<div class="col-md-3" id="picture_part" data-comment="<%= review.id %>"><%= image_tag movie.image_url, width: '150' %></div>');
+        $('.col-md-9[data-comment="'+<%= review.id %>+'"]').after('<div class="col-md-3" id="picture_part" data-comment="<%= review.id %>"><%= link_to movie_path(movie.id) do %><%= image_tag movie.image_url, width: '150' %><% end %></div>');
         $('.one_review[data-comment="'+<%= review.id %>+'"]').wrapInner('<div class="row" data-comment="<%= review.id %>"></div>');
     </script>
   <% end %>

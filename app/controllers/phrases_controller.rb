@@ -2,6 +2,7 @@ class PhrasesController < ApplicationController
 
   def create
     binding.pry
+
   end
 
 

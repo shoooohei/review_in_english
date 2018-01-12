@@ -15,19 +15,21 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @movie = Movie.find(params[:format])
-
+    @phrase = @review.phrases.new
   end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+    @phrase = @review.phrases.build(phrase_params)
 
     respond_to do |format|
-      if @review.save
+      if @review.save && @phrase.save
         format.html { redirect_to movie_path(@review.movie_id), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
+        @movie = @review.movie
         format.html { render :new }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
@@ -48,6 +50,7 @@ class ReviewsController < ApplicationController
   # GET /reviews/1/edit
   def edit
     @movie = @review.movie
+    @phrase = @review.phrases.first
   end
 
 
@@ -84,5 +87,9 @@ class ReviewsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
       params.require(:review).permit(:content, :phrase, :movie_id, :user_id, :rate)
+    end
+
+    def phrase_params
+      params.require(:phrase).permit(:content,:comment)
     end
 end

@@ -1,55 +1,50 @@
-<%= render 'reviews/one_review', review: @review, movie: @movie, change: @change %>
+<div class="container">
+  <%= render 'reviews/one_review', review: @review, movie: @movie, change: @change %>
 
-
-
-
-<% if current_user == @review.user %>
-  <%= link_to 'Edit', edit_review_path(@review) %> |
-  <%= link_to 'Destroy', review_path(@review), method: :delete, data: { confirm: "Are you sure?"} %> |
-<% else %>
-  <%= link_to 'Correct', new_review_correction_path(@review.id) %> |
-<% end %>
-
-<%= link_to 'Back', movie_path(@movie) %>
-
-<br>
-<br>
-<hr>
-<br>
-
-<h2>添削・コメント</h2>
-<% if @corrections.present? %>
-  <% @corrections.each do |correction| %>
-    <p>name:<%= correction.user.name %><p>
-    <p>content:<%= correction.content %></p>
-    <% if current_user == correction.user %>
-      <%= link_to 'delete', correction_path(correction.id), method: :delete, data: { confirm: "Are you sure?"} %><br>
-    <% end %>
-    <br>
+  <% if current_user == @review.user %>
+    <%= link_to 'Edit', edit_review_path(@review) %> |
+    <%= link_to 'Destroy', review_path(@review), method: :delete, data: { confirm: "Are you sure?"} %> |
+  <% else %>
+    <%= link_to 'Correct', new_review_correction_path(@review.id) %> |
   <% end %>
-<% end %>
 
-<%= form_with(model: [@review, @correction], local: true) do |form| %>
-  <% if @correction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@correction.errors.count, "error") %> prohibited this correction from being saved:</h2>
-      <ul>
-      <% @correction.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+  <%= link_to 'Back', movie_path(@movie) %>
+
+  <br>
+  <br>
+  <hr>
+  <br>
+
+  <h2>添削・コメント</h2>
+  <% if @corrections.present? %>
+    <% @corrections.each do |correction| %>
+      <p>name:<%= correction.user.name %><p>
+      <p>content:<%= correction.content %></p>
+      <% if current_user == correction.user %>
+        <%= link_to 'delete', correction_path(correction.id), method: :delete, data: { confirm: "Are you sure?"} %><br>
       <% end %>
-      </ul>
-    </div>
+      <br>
+    <% end %>
   <% end %>
 
-  <div>
-    <%= form.text_area :content %>
-  </div>
-  <%= form.hidden_field :user_id, value: current_user.id %>
-  <%= form.hidden_field :wether_correction, value: "false" %>
-  <%= form.submit 'comment' %>
-<% end %>
+  <%= form_with(model: [@review, @correction], local: true) do |form| %>
+    <% if @correction.errors.any? %>
+      <%= render 'layouts/error', var: @correction %>
+    <% end %>
 
-<!-- 添削・コメントリンクを消す -->
+    <div>
+      <%= form.text_area :content %>
+    </div>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :wether_correction, value: "false" %>
+    <%= form.submit 'comment' %>
+  <% end %>
+
+</div>
+<!-- container -->
+
+
 <script>
+// 添削・コメントリンクを消す
   $('.correction_link').css('display','none');
 </script>

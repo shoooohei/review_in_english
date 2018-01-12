@@ -1,34 +1,42 @@
 <%= form_with(model: review, local: true) do |form| %>
-  <% if review.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
-      <ul>
-      <% review.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <p>
-    <%= link_to "#{@movie.en_title}", movie_path(@movie.id) %>
+    <%= link_to "#{movie.en_title}", movie_path(movie.id) %>
   </p>
 
-    <%= image_tag @movie.image_url, width: '200' %>
+  <div class="">
+    <%= image_tag movie.image_url, width: '200' %>
+  </div>
+
+  <%= form.label :rate %>
+  <%= form.text_field :rate, id: 'amount' %>
+  <div id="slider"></div>
+
+  <% if review.errors.any? %>
+    <%= render 'layouts/error', var: review %>
+  <% end %>
 
   <div class="field">
     <%= form.label :content %>
     <%= form.text_area :content, id: :review_content %>
   </div>
 
-  <%= form.label :rate %>
-  <%= form.text_field :rate, id: 'amount' %>
+  <%= field_set_tag 'フレーズ' do %>
+    <% if action_name == "new" %>
+      <% if phrase.errors.any? %>
+        <%= render 'layouts/error', var: phrase %>
+      <% end %>
 
-  <div id="slider"></div>
+      <%= fields_for phrase do |pf| %>
+        <div class="field">
+          <%= pf.label :content %>
+          <%= pf.text_area :content, id: :phrase_content %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 
-
-  <%= form.hidden_field :movie_id, value: @movie.id %>
+  <%= form.hidden_field :movie_id, value: movie.id %>
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="actions">
