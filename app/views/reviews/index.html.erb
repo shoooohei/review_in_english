@@ -4,11 +4,11 @@
       <h1>Timeline</h1>
     </div>
 
-    <div class="container">
+    <div class="whole_page container">
       <% @reviews.each do |review| %>
         <% movie = review.movie %>
 
-        <%= render 'reviews/one_review', review: review, movie: movie, change: @change %>
+        <%= render 'reviews/one_review', review: review, movie: movie %>
 
       <% end %>
 
@@ -36,7 +36,6 @@
           </a>
         </li>
       </ul>
-
 
 
       <%= link_to 'New Movie', new_movie_path %>

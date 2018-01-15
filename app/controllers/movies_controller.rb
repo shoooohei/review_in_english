@@ -16,6 +16,7 @@ class MoviesController < ApplicationController
   def show
     @reviews = @movie.reviews.where.not(user_id: current_user.id).order(created_at: :desc)
     @own_review = current_user.reviews.find_by(movie_id: @movie.id)
+    gon.page = "movie_show"
   end
 
   # GET /movies/new

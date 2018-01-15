@@ -1,11 +1,14 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  include ReviewsHelper
 
   def index
     @reviews = Review.all.order(created_at: :desc)
-    @change = "timeline"
+    @page = "timeline"
+    gon.page = @page
+    gon.arg_js_detail = make_arr_for_js(@reviews,@page)[0]
+    gon.arg_js_review_id = make_arr_for_js(@reviews,@page)[1]
   end
-
 
   def corrected
     @corrections = current_user.corrections.where(wether_correction: true).order(created_at: :desc)
@@ -15,17 +18,15 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @movie = Movie.find(params[:format])
-    @phrase = @review.phrases.new
+    @review.phrases.new
   end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
-    @phrase = @review.phrases.build(phrase_params)
-
     respond_to do |format|
-      if @review.save && @phrase.save
+      if @review.save
         format.html { redirect_to movie_path(@review.movie_id), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
@@ -42,21 +43,24 @@ class ReviewsController < ApplicationController
     @movie = @review.movie
     @correction = @review.corrections.new
     @corrections = @review.corrections.order(created_at: :desc)
-    @phrase = @review.phrases.new
-    @change = "review_show"
+    @page = "review_show"
+    gon.page = @page
+    gon.arg_js_detail = make_arr_for_js(@review,@page)[0]
+    gon.arg_js_review_id = make_arr_for_js(@review,@page)[1]
   end
 
 
   # GET /reviews/1/edit
   def edit
     @movie = @review.movie
-    @phrase = @review.phrases.first
+    @phrases = @review.phrases
   end
 
 
   # PATCH/PUT /reviews/1
   # PATCH/PUT /reviews/1.json
   def update
+    @phrase = @review.phrases.build(phrase_params)
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to @review, notice: 'Review was successfully updated.' }
@@ -86,7 +90,7 @@ class ReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
-      params.require(:review).permit(:content, :phrase, :movie_id, :user_id, :rate)
+      params.require(:review).permit(:content, :movie_id, :user_id, :rate, phrases_attributes: [:content])
     end
 
     def phrase_params

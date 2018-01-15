@@ -1,0 +1,8 @@
+
+<!-- フレーズ記入欄 -->
+<!-- review.phrases.buildのインスタンス生成した個数のtextareaを表示してくれる -->
+<%= form.fields_for :phrases do |phrase| %>
+  <div class="filling_phrase">
+    <%= phrase.text_area :content, placeholder: 'フレーズを入力' %>
+  </div>
+<% end %>

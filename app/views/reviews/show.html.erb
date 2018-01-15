@@ -1,5 +1,5 @@
-<div class="container">
-  <%= render 'reviews/one_review', review: @review, movie: @movie, change: @change %>
+<div class="whole_page container">
+  <%= render 'reviews/one_review', review: @review, movie: @movie %>
 
   <% if current_user == @review.user %>
     <%= link_to 'Edit', edit_review_path(@review) %> |

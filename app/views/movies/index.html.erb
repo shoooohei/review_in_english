@@ -1,7 +1,9 @@
-<h1>全作品一覧</h1>
+<div class="whole_page container">
+  <h1>全作品一覧</h1>
 
-<% @movies.each do |movie| %>
-  <%= link_to movie_path(movie.id) do %>
-    <%= image_tag "#{movie.image.url}", width:'150', class: 'img-thumbnail' %>
+  <% @movies.each do |movie| %>
+    <%= link_to movie_path(movie.id) do %>
+      <%= image_tag "#{movie.image.url}", width:'150', class: 'img-thumbnail' %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

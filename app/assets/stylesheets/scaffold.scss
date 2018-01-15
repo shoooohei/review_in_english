@@ -41,9 +41,20 @@ html {
 }
 
 body{
-  height: 100%;
+  min-height: 100%;
   background-color: #FAFAFA;
   padding-top: 80px;
+  position: relative;
+}
+
+.whole_page {
+  padding-bottom: 200px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 

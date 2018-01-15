@@ -33,13 +33,18 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'jquery-turbolinks'
+
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'autosize', '~> 2.4'
+
 gem 'bootstrap', '~> 4.0.0.beta3'
+gem 'gon'
 
 
 

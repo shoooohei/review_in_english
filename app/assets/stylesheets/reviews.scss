@@ -7,7 +7,6 @@
   h1 {
     text-align: center;
   }
-
 }
 
 .review_part {
@@ -21,7 +20,8 @@
   margin-bottom: 20px;
 }
 
-p.review_content {
+// review#showのときだけjsでmin-height:100pxで変化
+.review_content p{
   max-height: 100px;
   margin-top: 20px;
   padding-left: 10px;
@@ -38,17 +38,25 @@ span.correction_link {
   color: #FFD52B;
 }
 
+.rate_part{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
+textarea {
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 
-#custom-handle {
-    width: 3em;
-    height: 1.6em;
-    top: 50%;
-    margin-top: -.8em;
-    text-align: center;
-    line-height: 1.6em;
-  }
+.filling_review textarea {
+  @extend textarea;
+  max-height: 500px;
+  min-height: 100px;
+}
 
-div#slider {
-  width: 50%;
+.filling_phrase textarea {
+  @extend textarea;
+  min-height: 50px;
+  max-height: 500px;
 }

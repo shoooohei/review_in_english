@@ -1,11 +1,15 @@
-.phrase_content {
+// review#showのときだけjsでmin-height:100pxで変化
+.phrase_content p{
   max-height: 100px;
   margin-top: 20px;
   padding-left: 10px;
-
-  p {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow: hidden;
-  }
 }
+
+// フレーズ追加のボタン
+// div#add_phrase {
+//     display: block;
+//     margin: 20px 50px;
+// }

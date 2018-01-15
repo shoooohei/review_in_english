@@ -1,6 +1,7 @@
 
   $( function() {
-    $( "#slider" ).slider({
+    $( "#slider-range-min" ).slider({
+      range: "min",
       min: 0,
       max: 5,
       step: 0.5,
@@ -8,5 +9,5 @@
         $( "#amount" ).val( ui.value );
       }
     });
-    $( "#amount" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#amount" ).val( $( "#slider-range-min" ).slider( "value" ) );
   } );

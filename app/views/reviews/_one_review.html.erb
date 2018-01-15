@@ -1,6 +1,7 @@
 <!-- 変数 review,movie,change -->
+<!-- changeがtimelineまたはreview#showの場合はjsでmovieのタイトルや画像などが表示される -->
 <div class="one_review" data-comment="<%= review.id %>">
-  <div id="detail_part" data-comment="<%= review.id %>">
+  <div class="detail_part" data-comment="<%= review.id %>">
     <h5>
       <% if review.user.user_icon.present? %>
         <%= image_tag "#{review.user.user_icon.image.url}", width: '50' %>
@@ -9,18 +10,24 @@
       <% end %>
       <%= link_to "#{review.user.name}さんのレビュー", review_path(review.id) %>
     </h5>
+    <!-- レートの表示 -->
     <div class="rate_wrap">
       <!-- rate_number(helper/reviews)でクラスの名前の変更(クラスには小数点が使えないから) -->
       <span class="rate rate<%= rate_number(review) %>"></span>
       <span class="rate_number"><%= review.rate %></span>
     </div>
-    <p class="review_content" data-comment="<%= review.id %>"><%= review.content %></p>
+
+    <!-- review#showの場合だけ全文見れるようにjsでcssが変わる -->
+    <div class="review_content" data-comment="<%= review.id %>">
+      <p class="review_sentence" data-comment="<%= review.id %>"><%= review.content %></p>
+    </div>
 
     <% if review.phrases.present? %>
       <div class="phrase_content">
-        <strong>Phrase:</strong>
+        <strong>Favorite phrase:</strong>
         <% review.phrases.each do |phrase| %>
-          <p><%= phrase.content %></p>
+          <!-- review#showの場合だけ全文見れるようにjsでcssが変わる -->
+          <p class="phrase_sentence" data-comment="<%= review.id %>"><%= phrase.content %></p>
         <% end %>
       </div>
     <% end %>
@@ -29,21 +36,3 @@
   <%= render 'rlikes/rlike_and_comment', review: review %>
 
 </div>
-
-<% if @change.present? %>
-  <% if change == "timeline" || change == "review_show" %>
-    <script>
-        $('p.review_content[data-comment="'+<%= review.id %>+'"]').before('<h3><%= link_to movie.en_title, movie_path(movie.id) %></h3><h6><small><%= movie.jp_title %></small></h6>'
-        );
-        $('#detail_part[data-comment="'+<%= review.id %>+'"]').wrap('<div class="col-md-9" data-comment="<%= review.id %>"></div>');
-        $('.col-md-9[data-comment="'+<%= review.id %>+'"]').after('<div class="col-md-3" id="picture_part" data-comment="<%= review.id %>"><%= link_to movie_path(movie.id) do %><%= image_tag movie.image_url, width: '150' %><% end %></div>');
-        $('.one_review[data-comment="'+<%= review.id %>+'"]').wrapInner('<div class="row" data-comment="<%= review.id %>"></div>');
-    </script>
-  <% end %>
-
-  <% if change == "review_show" %>
-    <script>
-      $('p.review_content[data-comment="'+<%= review.id %>+'"]').css({'max-height':'','min-height':'100px'});
-    </script>
-  <% end %>
-<% end %>
