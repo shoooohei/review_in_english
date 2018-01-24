@@ -1,9 +1,13 @@
-<div class="whole_page container">
+<div class="page_title container-fluid">
   <h1>全作品一覧</h1>
+</div>
+
+<div class="whole_page container">
+  <div class="row text-center text-lg-left">
 
   <% @movies.each do |movie| %>
-    <%= link_to movie_path(movie.id) do %>
-      <%= image_tag "#{movie.image.url}", width:'150', class: 'img-thumbnail' %>
-    <% end %>
+    <%= render 'movies/display_titles', movie: movie %>
   <% end %>
+
+  </div>
 </div>

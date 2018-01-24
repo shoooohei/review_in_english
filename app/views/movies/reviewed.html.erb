@@ -1,28 +1,12 @@
-<h2><%= current_user.name %>さんがレビューした作品</h2>
+<div class="page_title container-fluid">
+  <h1><%= current_user.name %>さんがレビューした作品</h1>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Review</th>
-      <th>Image</th>
-      <th>En title</th>
-      <th>Jp title</th>
-      <th>Imdb</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @reviews.each do |review| %>
-      <% movie = review.movie %>
-      <tr>
-        <td><%= review.content %></td>
-        <td><%= image_tag movie.image_url, width: '100' %></td>
-        <td><%= movie.en_title %></td>
-        <td><%= link_to movie.jp_title, movie_path(movie.id) %></td>
-        <td><%= link_to "IMDbで見る", movie.imdb, target: "_new" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br><br><br>
+<div class="whole_page container">
+  <div class="row text-center text-lg-left">
+  <% @reviews.each do |review| %>
+    <% movie = review.movie %>
+    <%= render 'movies/display_titles', movie: movie %>
+  <% end %>
+  </div>
+</div>

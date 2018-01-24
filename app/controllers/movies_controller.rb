@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  include ReviewsHelper
 
   # GET /movies
   # GET /movies.json
@@ -9,6 +10,10 @@ class MoviesController < ApplicationController
 
   def reviewed
     @reviews = current_user.reviews.order(created_at: :desc)
+    # @page = "reviewed_movies"
+    # gon.page = "reviewed_movies"
+    # gon.arg_js_detail = make_arg_for_js(@reviews, @page)[0]
+    # gon.arg_js_review_id = make_arg_for_js(@reviews, @page)[1]
   end
 
   # GET /movies/1
@@ -22,10 +27,12 @@ class MoviesController < ApplicationController
   # GET /movies/new
   def new
     @movie = Movie.new
+    @submit_btn = "作成する"
   end
 
   # GET /movies/1/edit
   def edit
+    @submit_btn = "更新する"
   end
 
   # POST /movies

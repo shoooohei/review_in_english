@@ -1,6 +1,11 @@
 <div class="whole_page">
   <div class="movie_detail container-fluid">
-    <h3><%= link_to @movie.en_title, movie_path(@movie.id) %></h3>
+    <h3>
+      <%= link_to @movie.en_title, movie_path(@movie.id) %>
+      <span class="btn edit_movie_link">
+        <%= link_to '作品情報を編集', edit_movie_path(@movie) %>
+      </span>
+    </h3>
     <h6><small><%= @movie.jp_title %></small></h6><br>
     <div class="row">
       <div class="movie_image col-md-4">
@@ -18,10 +23,6 @@
         <div>
           <%= link_to 'レビューを投稿する', choose_new_or_edit(@own_review, @movie), class: 'btn btn-default' %>
         </div>
-        <br>
-
-        <%= link_to 'Edit', edit_movie_path(@movie) %> |
-        <%= link_to 'Back', movies_path %>
 
       </div>
     </div>
@@ -29,7 +30,7 @@
   <!-- movie_detail -->
 
   <div class="review_part container">
-    <h2>Reviews</h2>
+    <h2>レビュー</h2>
       <% if @own_review.present? %>
         <%= render 'reviews/one_review', review: @own_review, movie: @movie, page: @page %>
       <% end %>

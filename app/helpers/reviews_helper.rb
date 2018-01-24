@@ -12,27 +12,28 @@ module ReviewsHelper
     end
   end
 
-  def test(review, arg_js_review_id, arg_js_detail)
+  def make_arr(review, arg_js_review_id, arg_js_detail)
     movie = review.movie
     arg_js_review_id << review.id
-    arg_js_detail["#{review.id}"] = {"movie_en_tile" => "#{movie.en_title}",
+    arg_js_detail["#{review.id}"] = {"movie_en_title" => "#{movie.en_title}",
                               "movie_id" => "#{movie.id}",
-                              "movie_jp_tile" => "#{movie.jp_title}",
+                              "movie_jp_title" => "#{movie.jp_title}",
                               "movie_image_url" => "#{movie.image_url}"
                             }
     return arg_js_review_id,arg_js_detail
   end
 
-  def make_arr_for_js(reviews,page)
+  def make_arg_for_js(reviews,page)
     arg_js_review_id = Array.new
     arg_js_detail = Hash.new
-    if page == "timeline"
+    if page == "timeline" || page == "reviewed_movies"
       reviews.each do |review|
-        test(review, arg_js_review_id, arg_js_detail)
+        make_arr(review, arg_js_review_id, arg_js_detail)
       end
     elsif page == "review_show"
-      test(reviews, arg_js_review_id, arg_js_detail)
+      make_arr(reviews, arg_js_review_id, arg_js_detail)
     end
+
     return arg_js_detail, arg_js_review_id
   end
 

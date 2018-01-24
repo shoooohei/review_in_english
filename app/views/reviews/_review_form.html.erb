@@ -1,8 +1,15 @@
+<!-- 変数review, movie, phrase -->
 <%= form_with(model: review, local: true, id: "review_form") do |form| %>
 
   <h3>
     <%= link_to "#{movie.en_title}", movie_path(movie.id) %><small>&nbsp;のレビュー</small>
+    <% if review.id.present? %>
+      <%= link_to new_review_phrase_path(review_id: review.id), remote: true do %>
+        <span class="btn" id="add_btn" >フレーズを追加</span>
+      <% end %>
+    <% end %>
   </h3>
+
 
   <div class="rate_part row">
     <div class="col-md-2">
@@ -21,37 +28,21 @@
     <%= render 'layouts/error', var: review %>
   <% end %>
 
-
-
-  <hr>
-
   <!-- フレーズ記入欄 -->
-  <!-- review.phrases.buildのインスタンス生成した個数のtextareaを表示してくれる -->
-  <%= form.fields_for :phrases do |phrase| %>
-    <div class="filling_phrase">
-      <%= phrase.text_area :content, placeholder: 'フレーズを入力', id: 'phrase_content' %>
+  <% if action_name == "new" || action_name == "create" %>
+    <%= render 'phrases/new_phrase', phrases_count: 0 %>
+  <% elsif action_name == "edit" %>
+    <div class="phrase_part">
+      <%= render 'phrases/edit_phrase', form: form, review: review %>
     </div>
   <% end %>
-  <!-- <div class="btn btn-primary" id="add_phrase">フレーズを追加</div> -->
-  <!-- ボタンを押すとフレーズの記入フォームが現れる -->
-  <div id="phrase_field"></div>
-
+  <!-- if-end -->
 
   <%= form.hidden_field :movie_id, value: movie.id %>
   <%= form.hidden_field :user_id, value: current_user.id %>
 
-  <input class="val" type="hidden" value="<%= review.id %>"> 
-
-  <div class="actions">
-    <%= form.submit '投稿', id: "submit_btn" %>
+  <div class="review_form_submit">
+    <%= form.submit '投稿', class: "btn btn-default", id: "submit_btn" %>
   </div>
 <% end %>
-
-<script>
-autosize($('textarea'));
-$('#review_form').on('submit', function(){
-  if($("#phrase_content").val() == "") {
-    $('#phrase_content').attr('disabled','true');
-  };
-});
-</script>
+<!-- form end -->

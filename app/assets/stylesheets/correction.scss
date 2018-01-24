@@ -1,0 +1,89 @@
+.correction_part {
+  background-color: #fff;
+  border: solid 1px #EEEEEE;
+  padding: 10px;
+}
+
+.all_corrections {
+    padding: 30px;
+}
+
+p.correction_sentence{
+  margin-top: 20px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+p.corrected_correction_sentence {
+  @extend p.correction_sentence;
+  max-height: 100px;
+}
+
+.who_corrected {
+    position: relative;
+}
+
+a.delete_icon {
+    position: absolute;
+    right: 0;
+    top: 1rem;
+}
+
+.fa-trash-o:hover {
+  font-size: 1.5rem;
+}
+
+a.edit_icon {
+  position: absolute;
+  right: 2.5rem;
+  top: 1rem;
+}
+
+.fa-pencil:hover {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.filling_correction textarea {
+  max-height: 500px;
+  min-height: 100px;
+}
+
+.comment_form {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.new_comment_form {
+  @extend .comment_form;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+
+textarea#comment_textarea {
+  max-height: 100px;
+}
+
+// .submit_btn {
+//   position: absolute;
+//   right:0;
+// }
+
+.filling_correction {
+  margin-bottom: 30px;
+  padding: 30px;
+  position: relative;
+  text-align: right;
+}
+
+.filling_correction .submit_btn {
+  right: 30px;
+}
+
+div.triangle {
+  width: 100%;
+  text-align: center;
+}

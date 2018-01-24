@@ -37,6 +37,9 @@ gem 'jquery-turbolinks'
 
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'fog-aws', group: :production
+
+
 gem 'devise'
 
 gem 'jquery-rails'

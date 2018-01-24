@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111061500) do
+ActiveRecord::Schema.define(version: 20180123221140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clikes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "correction_id"
+    t.integer "LikesCount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["correction_id"], name: "index_clikes_on_correction_id"
+    t.index ["user_id"], name: "index_clikes_on_user_id"
+  end
 
   create_table "corrections", force: :cascade do |t|
     t.text "content"
     t.bigint "review_id"
     t.bigint "user_id"
-    t.boolean "wether_correction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "wether_correction", default: false
+    t.integer "likes_count", default: 0
     t.index ["review_id"], name: "index_corrections_on_review_id"
     t.index ["user_id"], name: "index_corrections_on_user_id"
   end
@@ -50,15 +61,6 @@ ActiveRecord::Schema.define(version: 20180111061500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["review_id"], name: "index_phrases_on_review_id"
-  end
-
-  create_table "review_likes", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "review_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["review_id"], name: "index_review_likes_on_review_id"
-    t.index ["user_id"], name: "index_review_likes_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -108,9 +110,9 @@ ActiveRecord::Schema.define(version: 20180111061500) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "clikes", "corrections"
+  add_foreign_key "clikes", "users"
   add_foreign_key "phrases", "reviews"
-  add_foreign_key "review_likes", "reviews"
-  add_foreign_key "review_likes", "users"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
   add_foreign_key "rlikes", "reviews"

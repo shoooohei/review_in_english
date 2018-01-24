@@ -1,0 +1,7 @@
+$('.all_corrections').append("<%= j(render 'corrections/one_correction', correction: @correction, review: @review) %>");
+$('textarea#comment_textarea').val('');
+
+
+
+// $('.each_correction[data-correction-id="'+<%= @corrections_count - 1 %>+'"]').after("<%= j(render 'corrections/one_correction', correction: @correction, review: @review) %>");
+// $('textarea#comment_textarea').val('');

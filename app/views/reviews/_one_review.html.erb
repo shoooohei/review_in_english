@@ -1,15 +1,19 @@
-<!-- 変数 review,movie,change -->
-<!-- changeがtimelineまたはreview#showの場合はjsでmovieのタイトルや画像などが表示される -->
+<!-- 変数 review,movie -->
+<!-- pageがtimelineまたはreview#showの場合はjsでmovieのタイトルや画像などが表示される -->
 <div class="one_review" data-comment="<%= review.id %>">
   <div class="detail_part" data-comment="<%= review.id %>">
+    <span class="time_created"><%= review.created_at.strftime("%Y/%m/%d/ %H:%M") %></span>
     <h5>
       <% if review.user.user_icon.present? %>
         <%= image_tag "#{review.user.user_icon.image.url}", width: '50' %>
       <% else %>
-        <%= image_tag 'default_user_img.png', width: '50' %>
+        <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
       <% end %>
-      <%= link_to "#{review.user.name}さんのレビュー", review_path(review.id) %>
+      <span>
+        <%= link_to "#{review.user.name}さんのレビュー", review_path(review.id), data: { name: "movie_name"} %>
+      </span>
     </h5>
+
     <!-- レートの表示 -->
     <div class="rate_wrap">
       <!-- rate_number(helper/reviews)でクラスの名前の変更(クラスには小数点が使えないから) -->
@@ -24,15 +28,35 @@
 
     <% if review.phrases.present? %>
       <div class="phrase_content">
-        <strong>Favorite phrase:</strong>
-        <% review.phrases.each do |phrase| %>
+        <% phrases = review.phrases.order(created_at: :asc) %>
+        <% count = 1 %>
+        <% phrases.each do |phrase| %>
+          <strong>Favorite phrase<%= count %>：</strong>
           <!-- review#showの場合だけ全文見れるようにjsでcssが変わる -->
           <p class="phrase_sentence" data-comment="<%= review.id %>"><%= phrase.content %></p>
+          <% count += 1 %>
         <% end %>
       </div>
     <% end %>
+
   </div>
+</div>
+<!-- one_review -->
 
+<div class="for_buttons">
+  <% if @review.present? %>
+    <% if current_user == @review.user %>
+      <%= link_to edit_review_path(@review) do %>
+        <i class="fa fa-pencil fa-lg fa-fw" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to review_path(@review), method: :delete, data: { confirm: "Are you sure?"} do %>
+        <i class="fa fa-trash-o fa-lg fa-fw" aria-hidden="true"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+
+<div class="evaluate_part">
   <%= render 'rlikes/rlike_and_comment', review: review %>
-
 </div>

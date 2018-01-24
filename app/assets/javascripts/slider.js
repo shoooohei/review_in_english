@@ -1,5 +1,5 @@
 
-  $( function() {
+  $(function(){
     $( "#slider-range-min" ).slider({
       range: "min",
       min: 0,
@@ -10,4 +10,4 @@
       }
     });
     $( "#amount" ).val( $( "#slider-range-min" ).slider( "value" ) );
-  } );
+  });

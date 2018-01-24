@@ -1,15 +1,80 @@
-// review#showのときだけjsでmin-height:100pxで変化
-.phrase_content p{
+// review#showのときだけjsでmin-height:100pxに変化
+p.phrase_sentence{
   max-height: 100px;
   margin-top: 20px;
   padding-left: 10px;
+  padding-right: 20px;
+  font-style: italic;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow: hidden;
 }
 
-// フレーズ追加のボタン
-// div#add_phrase {
-//     display: block;
-//     margin: 20px 50px;
-// }
+.whole_sentence_phrase {
+  min-height: 10px;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
+  font-style: italic;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.edit_phrases_buttons{
+  text-align: right;
+  a{
+    text-decoration: none;
+  }
+}
+
+.fa-times:hover{
+  font-size: 1.5rem;
+}
+
+div#cancel_btn, a#cancel_btn {
+  color: white;
+  background-color: orange;
+  display: none;
+}
+
+div#created_cancel_btn {
+  @extend div#cancel_btn;
+}
+
+span#add_btn {
+  display: inline-block;
+  color: white;
+  background-color: pink;
+}
+
+.phrase_form:read-only {
+  border-color: transparent;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.filling_phrase {
+  margin-bottom: 30px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
+  border: solid 1px #ccc;
+}
+
+.created_filling_phrase {
+  @extend .filling_phrase;
+  text-align: right;
+}
+
+// review#editでphraseを消すためのもの
+#destroy_checkbox {
+  display: none;
+}
+
+.review_form_submit {
+  text-align: right;
+}

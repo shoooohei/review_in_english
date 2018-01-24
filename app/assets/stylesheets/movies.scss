@@ -10,8 +10,30 @@
 }
 
 .movie_detail.container-fluid {
-    padding: 20px 50px 15px 50px;
+    padding: 20px 50px 30px 50px;
     background: #fff;
     border: solid 1px #EEEEEE;
+}
 
+span.btn.edit_movie_link {
+    font-size: .8rem;
+    border-color: #ccc;
+    margin-left: 50px;
+}
+
+span.cancel_editing{
+  @extend span.btn.edit_movie_link;
+  background-color: #fff
+}
+
+.movie_edit_field input[type="text"]{
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.movie_edit_field input#movie_image {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

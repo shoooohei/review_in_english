@@ -1,22 +1,52 @@
 class CorrectionsController < ApplicationController
+  before_action :set_correction, only: [:edit, :cancel, :update, :destroy]
+
+
   def new
     #reviewに紐づけた新しいcorrectionのインスタンス生成
-    @correction = Review.find(params[:format]).corrections.new
+    @correction = Review.find(params[:review_id]).corrections.new
     @movie = @correction.review.movie
   end
 
   def create
-    @correction = Correction.new(correction_params)
-    if @correction.save
-      redirect_to review_path(@correction.review_id)
-    elsif params[:commit] == "correct"
-      @movie = @correction.review.movie
-      render 'new'
-    else
-      @review = Review.find(@correction.review_id)
-      @movie = @review.movie
-      @corrections = @review.corrections.order(created_at: :desc)
-      render 'reviews/show'
+    @review = Review.find(params[:review_id])
+    @correction = @review.corrections.new(correction_params)
+    @correction.save
+    @corrections_count = @review.corrections.order(created_at: :asc).last.id
+    respond_to do |format|
+      format.html {redirect_to review_path(@review)}
+      format.js
+    end
+  end
+
+  def edit
+    @review = @correction.review
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def cancel
+    respond_to do |format|
+      format.js {render :display}
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @correction.update(correction_params)
+        format.js {render :display}
+      else
+        @review = @correction.review
+        format.js {render :edit}
+      end
+    end
+  end
+
+  def destroy
+    @correction.destroy
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -24,6 +54,10 @@ class CorrectionsController < ApplicationController
 
   private
   def correction_params
-    params.require(:correction).permit(:content, :review_id, :user_id, :wether_correction)
+    params.require(:correction).permit(:content, :user_id, :wether_correction)
+  end
+
+  def set_correction
+    @correction = Correction.find(params[:id])
   end
 end

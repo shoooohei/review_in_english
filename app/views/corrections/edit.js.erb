@@ -1,0 +1,1 @@
+$('.correction_content[data-correction-id="'+<%= @correction.id %>+'"]').html("<%= escape_javascript(render 'corrections/comment_form', review: @review, correction: @correction) %>")

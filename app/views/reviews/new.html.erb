@@ -1,6 +1,5 @@
-<div class="container">
+<div class=" whole_page container">
 
-  <%= render 'form', review: @review, movie: @movie, phrase: @phrase %>
+  <%= render 'reviews/review_form', review: @review, movie: @movie, phrase: @phrase %>
 
-  <%= link_to 'Back', movie_path(@movie) %>
 </div>

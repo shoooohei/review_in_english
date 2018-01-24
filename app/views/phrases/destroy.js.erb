@@ -1,0 +1,3 @@
+var $delete_phrase = $('.filling_phrase[data-phrase-id="<%= @phrase_id %>"]');
+$delete_phrase.next('input[type="hidden"]').remove();
+$delete_phrase.remove();

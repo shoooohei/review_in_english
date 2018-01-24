@@ -1,0 +1,13 @@
+<!-- 変数 review, correction -->
+<div class="comment_form">
+  <%= form_with(model: [review, correction], remote: true,) do |form| %>
+    <% if correction.errors.any? %>
+      <%= render 'layouts/error', var: correction %>
+    <% end %>
+      <%= form.text_area :content, required: true  %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :wether_correction, value: "false" %>
+      <%= link_to 'キャンセル', cancel_review_correction_path(correction), class:"btn btn-default", remote: true %>
+      <%= form.submit 'コメント', class:"btn btn-default submit_btn" %>
+  <% end %>
+</div>

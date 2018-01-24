@@ -3,16 +3,19 @@
 <%= form_with(model: @user_icon, local: true) do |form| %>
 
   <% if @user_icon.errors.any? %>
-    <%= render 'layouts/error', var: @user_icon %>
+    <%= render 'layouts/error', var: @user_icon %><br>
   <% end %>
+  <br>
 
   <% if @user_icon.image.present? %>
-    <%= image_tag @user_icon.image_url, width: '100' %>
+    <%= image_tag @user_icon.image_url, width: '100' %><br>
   <% end %>
+  <br>
 
   <div class="field">
     <%= form.file_field :image, id: 'movie_image' %>
   </div>
+  <br>
 
   <%= form.hidden_field :user_id, value: "#{current_user.id}" %>
   <%= form.submit "アイコンを登録する" %>

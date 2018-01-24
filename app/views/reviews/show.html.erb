@@ -1,50 +1,67 @@
 <div class="whole_page container">
   <%= render 'reviews/one_review', review: @review, movie: @movie %>
 
-  <% if current_user == @review.user %>
-    <%= link_to 'Edit', edit_review_path(@review) %> |
-    <%= link_to 'Destroy', review_path(@review), method: :delete, data: { confirm: "Are you sure?"} %> |
-  <% else %>
-    <%= link_to 'Correct', new_review_correction_path(@review.id) %> |
-  <% end %>
+  <div class="correction_part">
 
-  <%= link_to 'Back', movie_path(@movie) %>
+    <!-- タブ -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="true">コメント</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="correction-tab" data-toggle="tab" href="#correction" role="tab" aria-controls="correction" aria-selected="false">添削する</a>
+      </li>
+    </ul>
+    <!-- タブの中身 -->
+    <!-- コメントタブ -->
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="comment" role="tabpanel" aria-labelledby="comment-tab">
 
-  <br>
-  <br>
-  <hr>
-  <br>
+        <div class="all_corrections">
+          <% if @corrections.present? %>
+            <% @corrections.each do |correction| %>
+              <%= render 'corrections/one_correction', correction: correction, review: @review %>
+            <% end %>
+          <% end %>
+        </div>
+        <!-- all_corrections -->
 
-  <h2>添削・コメント</h2>
-  <% if @corrections.present? %>
-    <% @corrections.each do |correction| %>
-      <p>name:<%= correction.user.name %><p>
-      <p>content:<%= correction.content %></p>
-      <% if current_user == correction.user %>
-        <%= link_to 'delete', correction_path(correction.id), method: :delete, data: { confirm: "Are you sure?"} %><br>
-      <% end %>
-      <br>
-    <% end %>
-  <% end %>
+        <%= form_with(model: [@review, @correction], remote: true, id: "new_correction_form") do |form| %>
+          <% if @correction.errors.any? %>
+            <%= render 'layouts/error', var: @correction %>
+          <% end %>
+          <div class="new_comment_form">
+            <%= form.text_area :content, id: "comment_textarea", required: true %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+            <%= form.hidden_field :wether_correction, value: "false" %>
+            <%= form.submit 'コメント', class:"btn btn-default submit_btn" %>
+          </div>
+        <% end %>
+      </div>
+      <!-- コメントタブ -->
 
-  <%= form_with(model: [@review, @correction], local: true) do |form| %>
-    <% if @correction.errors.any? %>
-      <%= render 'layouts/error', var: @correction %>
-    <% end %>
+      <!-- 添削タブ -->
+      <div class="tab-pane fade" id="correction" role="tabpanel" aria-labelledby="correction-tab">
 
-    <div>
-      <%= form.text_area :content %>
+          <%= form_with(model: [@review, @correction], local: true) do |form| %>
+            <% if @correction.errors.any? %>
+              <%= render 'layouts/error', var: @correction %>
+            <% end %>
+
+            <div class="filling_correction">
+              <%= form.text_area :content, required: true  %>
+              <%= form.hidden_field :user_id, value: current_user.id %>
+              <%= form.hidden_field :wether_correction, value: "true" %>
+              <%= form.submit '添削', class:"btn btn-default submit_btn" %>
+            </div>
+
+          <% end %>
+
+      </div>
     </div>
-    <%= form.hidden_field :user_id, value: current_user.id %>
-    <%= form.hidden_field :wether_correction, value: "false" %>
-    <%= form.submit 'comment' %>
-  <% end %>
 
+
+  </div>
+  <!-- correction_part -->
 </div>
 <!-- container -->
-
-
-<script>
-// 添削・コメントリンクを消す
-  $('.correction_link').css('display','none');
-</script>

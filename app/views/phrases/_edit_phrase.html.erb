@@ -1,0 +1,24 @@
+
+<!-- フレーズ記入欄 -->
+<!-- review.phrases.buildのインスタンス生成した個数のtextareaを表示してくれる -->
+<!-- jsでボタンが表示、非表示が切り替わるので、要注意 -->
+<% count = 1 %>
+<%= form.fields_for :phrases, review.phrases.sort_by(&:created_at) do |phrase| %>
+  <div class="filling_phrase" data-phrase-id="<%= phrase.object.id %>">
+    <strong>Favorite phrase<%= count %>：</strong>
+    <%= phrase.text_area :content, placeholder: 'フレーズを入力', class: "phrase_form", required: true, data: { phrase_id: "#{phrase.object.id}" } %>
+    <!-- ボタンを押すとフレーズの記入フォームの表示が切り替わる -->
+    <div class="edit_phrases_buttons">
+      <%= link_to edit_review_phrase_path(review, phrase.object.id), remote: true, data: { phrase_id: "#{phrase.object.id}" } do %>
+        <i class="fa fa-pencil fa-lg fa-fw" aria-hidden="true"></i>
+      <% end %>
+
+      <%= link_to review_phrase_path(review, phrase.object.id), method: :delete, remote: true, id:"delete_btn", data: { confirm: "Are you sure?", phrase_id: "#{phrase.object.id}" } do %>
+        <i class="fa fa-trash-o fa-lg fa-fw" aria-hidden="true"></i>
+      <% end %>
+
+      <%= link_to 'キャンセル', cancel_review_phrase_path(review, phrase.object.id), remote: true, class:"btn", id:"cancel_btn", data: { phrase_id: "#{phrase.object.id}" } %>
+    </div>
+  </div>
+  <% count += 1 %>
+<% end %>

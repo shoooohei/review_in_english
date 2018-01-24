@@ -1,4 +1,4 @@
-.timeline_title.container-fluid {
+.page_title.container-fluid {
   background-color: #fff;
   border: solid 1px #EEEEEE;
   // margin-top: 20px;
@@ -15,16 +15,33 @@
 
 .one_review{
   background-color: #fff;
-  border: solid 1px #EEEEEE;
+  border-left: solid 1px #eee;
+  border-right: solid 1px #eee;
+  border-top: solid 1px #eee;
   padding: 10px;
-  margin-bottom: 20px;
+}
+
+span.time_created {
+    font-size: .9rem;
+    color: darkgray;
 }
 
 // review#showのときだけjsでmin-height:100pxで変化
-.review_content p{
+p.review_sentence {
   max-height: 100px;
   margin-top: 20px;
   padding-left: 10px;
+  padding-right: 20px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.whole_sentence_review {
+  min-height: 100px;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow: hidden;
@@ -43,20 +60,46 @@ span.correction_link {
   margin-bottom: 20px;
 }
 
+.for_buttons {
+  text-align: right;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  background-color: white;
+  border-left: solid 1px #eee;
+  border-right: solid 1px #eee;
+  a{
+    text-decoration: none;
+  }
+
+}
+
+.evaluate_part {
+  width: 100%;
+  background-color: #fff;
+  border: solid 1px #EEEEEE;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
 textarea {
   width: 100%;
-  white-space: pre-wrap;
-  word-wrap: break-word;
 }
 
 .filling_review textarea {
-  @extend textarea;
   max-height: 500px;
   min-height: 100px;
 }
 
 .filling_phrase textarea {
-  @extend textarea;
   min-height: 50px;
   max-height: 500px;
+}
+
+.corrected_one_review {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: solid 1px #eee;
 }

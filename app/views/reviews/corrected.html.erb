@@ -1,32 +1,68 @@
-<h2><%= current_user.name %>さんが添削したレビュー</h2>
+<div class="page_title container-fluid">
+  <h1><%= current_user.name %>さんが添削したレビュー</h1>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Correction</th>
-      <th>name</th>
-      <th>Review</th>
-      <th>Image</th>
-      <th>En title</th>
-      <th>Jp title</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
+<div class="whole_page container">
+  <% @corrected_reviews_ids.each do |corrected_reviews_id| %>
+    <% review = Review.find(corrected_reviews_id) %>
+    <% movie = review.movie %>
+    <!-- コメントが入っていない添削したcorrectionsからreview_idでフィルターして、最後のcorrectionだけを表示する -->
+    <% correction = @true_corrections.where(review_id: corrected_reviews_id).last %>
 
-  <tbody>
-    <% @corrections.each do |correction| %>
-      <% movie = correction.review.movie %>
-      <% review = correction.review %>
-      <tr>
-        <td><%= correction.content %></td>
-        <td><%= review.user.name %></td>
-        <td><%= review.content %></td>
-        <td><%= image_tag movie.image_url, width: '100' %></td>
-        <td><%= movie.en_title %></td>
-        <td><%= link_to movie.jp_title, movie_path(movie.id) %></td>
-        <td><%= link_to 'Show', review_path(review.id) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br><br><br>
+    <div class="corrected_one_review" data-comment="<%= review.id %>">
+      <div class="row" data-comment="<%= review.id %>">
+        <div class="col-md-9" data-comment="<%= review.id %>">
+
+          <!-- レビュー内容 -->
+          <div class="detail_part" data-comment="<%= review.id %>">
+            <span class="time_created"><%= correction.created_at.strftime("%Y/%m/%d/ %H:%M") %></span>
+            <h5>
+              <% if review.user.user_icon.present? %>
+                <%= image_tag "#{review.user.user_icon.image.url}", width: '50' %>
+              <% else %>
+                <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
+              <% end %>
+              <span>
+                <%= link_to "#{review.user.name}さんの#{movie.en_title}のレビュー", review_path(review.id), data: { name: "movie_name"} %>
+              </span>
+            </h5>
+
+            <div class="review_content" data-comment="<%= review.id %>">
+              <p class="review_sentence" data-comment="<%= review.id %>"><%= review.content %></p>
+            </div>
+
+            <div class="triangle">
+              <i class="fa fa-caret-down fa-5x" aria-hidden="true"></i>
+            </div>
+
+            <!-- 添削内容 -->
+            <h5>
+              <% if correction.user.user_icon.present? %>
+                <%= image_tag "#{correction.user.user_icon.image.url}", width: '50' %>
+              <% else %>
+                <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
+              <% end %>
+              <span>
+                <%= link_to "#{correction.user.name}さんの添削", review_path(review.id), data: { name: "movie_name"} %>
+              </span>
+            </h5>
+
+            <div class="correction_content" data-correction-id="<%= correction.id %>">
+              <p class="corrected_correction_sentence"><%= correction.content %></p>
+            </div>
+
+          </div>
+        </div>
+        <!-- col-md-9 -->
+        <div class="col-md-3" id="picture_part" data-comment="<%= review.id %>">
+          <%= link_to movie_path(movie) do %>
+            <%= image_tag "#{movie.image.url}", class: "img-thumbnail", width: "150" %>
+          <% end %>
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- one_review -->
+  <% end %>
+</div>
+<!-- whole_page -->

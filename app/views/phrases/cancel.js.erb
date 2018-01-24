@@ -1,0 +1,4 @@
+$('textarea[data-phrase-id="<%= @phrase.id %>"]').val('<%= @phrase.content %>');
+$('textarea[data-phrase-id="<%= @phrase.id %>"]').attr('readonly','true');
+$('a[data-phrase-id="<%= @phrase.id %>"]').show();
+$('#cancel_btn[data-phrase-id="<%= @phrase.id %>"]').hide();

@@ -1,6 +1,9 @@
-<h1>Editing Movie</h1>
+<div class="whole_page container">
+  <h3>作品情報を編集する</small>
+    <span class="btn cancel_editing"><%= link_to '編集を破棄する', @movie, data: { confirm: "Are you sure?"} %></span>
+  </h3>
 
-<%= render 'form', movie: @movie %>
+  <%= render 'form', movie: @movie, submit_btn: @submit_btn %>
 
-<%= link_to 'Show', @movie %> |
-<%= link_to 'Back', movies_path %>
+
+</div>

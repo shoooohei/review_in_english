@@ -1,0 +1,59 @@
+<!-- 変数 correction, review -->
+<div class="each_correction" data-correction-id="<%= correction.id %>">
+  <div class="who_corrected">
+    <span class="time_created"><%= correction.created_at.strftime("%Y/%m/%d/ %H:%M") %></span>
+    <h6>
+      <% if correction.user.user_icon.present? %>
+        <%= image_tag "#{correction.user.user_icon.image.url}", width: '40' %>
+      <% else %>
+        <i class="fa fa-user-o fa-2x" aria-hidden="true"></i>
+      <% end %>
+      <span><%= correction.user.name %>さん</span>
+    </h6>
+    <% if current_user == correction.user %>
+      <%= link_to edit_review_correction_path(review, correction), class: "edit_icon", remote: true do %>
+        <i class="fa fa-pencil fa-lg fa-fw" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to review_correction_path(review, correction.id), method: :delete, data: { confirm: "Are you sure?"}, class: "delete_icon", remote: true  do %>
+        <i class="fa fa-trash-o fa-lg fa-fw" aria-hidden="true"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <% if correction.wether_correction == true %>
+    <i class="fa fa-check-square" aria-hidden="true"></i>
+  <% end %>
+  <div class="correction_content" data-correction-id="<%= correction.id %>">
+    <p class="correction_sentence"><%= correction.content %></p>
+  </div>
+  <!-- correction_content -->
+
+  <!-- 変数 correction -->
+  <div class="correction_like">
+    <% if user_signed_in? %>
+      <% count = correction.likes_count %>
+      <% if clike_user(correction.id, current_user.id).present? %>
+
+        <span class="clike_for_edit">
+          <%= render 'clikes/off', review: review, correction: correction, like: @like, count: count %>
+        </span>
+
+      <% else %>
+
+        <span class="clike_for_edit">
+          <%= render 'clikes/on', review: review, correction: correction, count: count %>
+        </span>
+
+      <% end %>
+
+    <% else %>
+      <p class="correction_like"><i class="fa fa-heart" aria-hidden="true"></i>いいね！</p>
+        <span>
+          <%= correction.likes_count %>
+        </span>
+    <% end %>
+  </div>
+
+
+  <hr>
+</div>
+<!-- each_correction -->

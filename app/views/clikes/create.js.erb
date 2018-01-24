@@ -1,0 +1,2 @@
+var idComment = <%= @id_comment %>;
+$('a[data-comment="'+idComment+'"]').parent().html("<%= j(render 'off', review: @review, correction: @correction, like: @correction_like, count: @count) %>");

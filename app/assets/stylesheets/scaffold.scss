@@ -34,6 +34,16 @@ a {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
+
+  &:focus{
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+  }
+
+  &:active{
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
 }
 
 html {
@@ -71,4 +81,8 @@ p.alert {
 
 .error_explanation {
   margin-top: 20px;
+}
+
+.btn-gray-light {
+  background-color: lightgray;
 }

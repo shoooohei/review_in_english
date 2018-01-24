@@ -11,8 +11,17 @@ Rails.application.routes.draw do
       get :corrected
     end
     resources :rlikes, only: [:create, :destroy]
-    resources :corrections, only:[:new, :create, :edit, :update, :destroy]
-    resources :phrases, only:[:new, :create, :edit, :update, :destroy]
+    resources :corrections, only:[:new, :create, :edit, :update, :destroy] do
+      member do
+        get :cancel
+      end
+      resources :clikes, only: [:create, :destroy]
+    end
+    resources :phrases, only:[:new, :edit, :destroy] do
+      member do
+        get :cancel
+      end
+    end
   end
 
 
