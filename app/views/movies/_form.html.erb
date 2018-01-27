@@ -7,7 +7,7 @@
     <div class="movie_edit_field">
       <%= form.text_field :jp_title, placeholder: "Japanese title" %>
       <%= form.text_field :en_title, placeholder: "English title", required: true  %>
-      <%= form.file_field :image, id: :movie_image %>
+      <%= form.file_field :image, id: :movie_image, required: true %>
       <%= form.hidden_field :image_cache %>
       <%= form.text_field :director, placeholder: "Director" %>
       <%= form.text_field :writer, placeholder: "Writers" %>
