@@ -2,9 +2,11 @@
   <div class="movie_detail container-fluid">
     <h3>
       <%= link_to @movie.en_title, movie_path(@movie.id) %>
-      <span class="btn edit_movie_link">
-        <%= link_to '作品情報を編集', edit_movie_path(@movie) %>
-      </span>
+      <% if current_user.admin_flg %>
+        <span class="btn edit_movie_link">
+          <%= link_to '作品情報を編集', edit_movie_path(@movie) %>
+        </span>
+      <% end %>
     </h3>
     <h6><small><%= @movie.jp_title %></small></h6><br>
     <div class="row">

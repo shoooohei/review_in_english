@@ -34,6 +34,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to movie_path(@review.movie_id), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
+        gon.page = "review_invail"
         # @phrase = params
         @movie = @review.movie
         format.html { render :new }

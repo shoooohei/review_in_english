@@ -2,7 +2,7 @@ $(function(){
   // textareaの縦幅自動変更
   autosize($('textarea'));
 
-  if(gon.page === "review_new"){
+  if(gon.page === "review_new" || gon.page === "review_invail"){
     $('textarea.phrase_form').prop('required','');
     $('#created_cancel_btn').hide();
   }

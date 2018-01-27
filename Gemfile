@@ -41,6 +41,8 @@ gem 'fog-aws', group: :production
 
 
 gem 'devise'
+gem 'rails_admin', '~> 1.2'
+gem 'cancancan', '~> 2.0'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -48,7 +50,6 @@ gem 'autosize', '~> 2.4'
 
 gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'gon'
-
 
 
 group :development, :test do
