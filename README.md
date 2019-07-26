@@ -1,6 +1,7 @@
 # README
 
 ## アプリ名： ReviewInEnglish
+アプリURL: [https://review-in-english.herokuapp.com/users/sign_in](https://review-in-english.herokuapp.com/users/sign_in)
 
 ## 概要
 英語で書く映画のレビューアプリ。  
