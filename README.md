@@ -13,5 +13,5 @@
 SNSライクにレビューを添削しあえる。
 
 ## サンプルユーザー
-Email: test@test.com
+Email: test@test.com  
 Password: password
