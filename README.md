@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリ名： ReviewInEnglish
 
-Things you may want to cover:
+## 概要
+英語で書く映画のレビューアプリ。  
 
-* Ruby version
+## コンセプト
+英語学習者をターゲットにしている。  
+英語の上達にはアウトプットがかかせない。  
+日常会話を上達のために映画のレビューを英語で書くとかなり効果的。  
+SNSライクにレビューを添削しあえる。
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## サンプルユーザー
+Email: test@test.com
+Password: password
