@@ -41,7 +41,7 @@ gem 'fog-aws', group: :production
 
 
 gem 'devise'
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '~> 1.4'
 gem 'cancancan', '~> 2.0'
 
 gem 'jquery-rails'
